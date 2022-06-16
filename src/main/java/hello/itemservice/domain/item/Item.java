@@ -5,11 +5,17 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
 @Data
 public class Item {
 
     private Long id;
+    @NotEmpty(message = "itemName은 필수 값입니다.")
     private String itemName;
+    @Max(value = 10000, message = "만원 이하만 가능합니다.")
     private Integer price;
     private Integer quantity;
 

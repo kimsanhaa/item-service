@@ -5,12 +5,18 @@ import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -81,12 +87,19 @@ public class BasicItemController {
     }
 
     @PostMapping("/add")
-    public String addItemV6(Item item, RedirectAttributes redirectAttributes){
+    public ResponseEntity addItemV6(@Valid Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes){
+        if(bindingResult.hasErrors()){
+            List<ObjectError> errorList = bindingResult.getAllErrors();
+            for (ObjectError objectError : errorList) {
+                System.out.println("error=="+objectError.getDefaultMessage());
+            }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
+        }
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemdId", savedItem.getId());
         redirectAttributes.addAttribute("status",true);
 
-        return "redirect:/basic/items/{itemdId}";
+        return ResponseEntity.ok(item);
     }
 
     @GetMapping("/{itemId}/edit")
@@ -98,7 +111,7 @@ public class BasicItemController {
     }
 
     @PostMapping("/{itemId}/edit")
-    public String edit(@PathVariable Long itemId,  @ModelAttribute Item item){
+    public String edit(@PathVariable Long itemId,  @ModelAttribute  Item item){
         itemRepository.update(itemId,item);
         return "redirect:/basic/items/{itemId}";
     }
