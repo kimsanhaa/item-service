@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div>main입니다. </div>
+    <div class="container-fluid">
+        <form action="/transForm" method="post">
+            <input type="text" id="letter" name="letter" class="formcontrol" placeholder="번역할 내용을 입력하세요">
+            <button type="submit">번역하기</button>
+        </form>
+        <input type="text"  class="formcontrol" readonly>
+        <input type="text"  class="formcontrol" readonly>
+    </div>
+</th:block>
+</html>

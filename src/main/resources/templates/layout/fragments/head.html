@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lagn="ko" xmlns:th="http://www.thymeleaf.org">
+
+<!-- Head -->
+<th:block th:fragment="headFragment">
+    <head>
+        <link th:href="@{/css/head.css}" rel="stylesheet" />
+    <div class="headBar">
+        <button th:onclick="|location.href='@{/}'|">한번에번역기</button>
+        <button th:onclick="|location.href='@{/board}'|">커뮤니티</button>
+        <button th:onclick="|location.href='@{/}'|">내정보</button>
+        <button th:onclick="|location.href='@{/}'|">로그인</button>
+    </div>
+    </head>
+</th:block>
+</html>

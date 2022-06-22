@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
+
+<th:block layout:fragment="content">
+    <div>
+        <form action="/transForm" method="post">
+            <input type="text" id="letter" name="letter" th:value="${domain.letter}">
+            <button type="submit">번역하기</button>
+        </form>
+        <input type="text" th:value="${domain.jpLetter}" readonly>
+        <input type="text" th:value="${domain.enLetter}" readonly>
+    </div>
+</th:block>
+</html>

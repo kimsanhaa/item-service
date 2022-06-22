@@ -1,4 +1,8 @@
 package hello.itemservice.papagoAPI;
+
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -13,7 +17,7 @@ import java.util.Map;
 @Component
 public class KrnJpnsApi {
 
-    public String mainMethod(String letter) {
+    public String mainMethod(String letter) throws ParseException {
         String clientId = "JQDxXJ8TtXHYvMN4wgah";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "HEXzrpzAW9";//애플리케이션 클라이언트 시크릿값";
 
@@ -31,11 +35,18 @@ public class KrnJpnsApi {
 
         String responseBody = post(apiURL, requestHeaders, text);
 
-
+        JSONParser parser = new JSONParser();
+        JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
+        JSONObject message = (JSONObject) jsonObject.get("message");
+        JSONObject result = (JSONObject) message.get("result");
+        String answer="";
+        for (Object o : result.keySet()) {
+            if(o.equals("translatedText")){
+                answer= (String) result.get(o);
+            }
+        }
         //번역된 값만 나오게 해야함
-        System.out.println("여기는 api!");
-    System.out.println(responseBody);
-       return responseBody;
+       return answer;
     }
 
     private   String post(String apiUrl, Map<String, String> requestHeaders, String text){
