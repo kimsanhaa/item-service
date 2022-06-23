@@ -6,9 +6,9 @@ import hello.itemservice.service.transService;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class indexController {
@@ -16,8 +16,10 @@ public class indexController {
 
     private final transService transservice;
 
+
     @Autowired
-    public indexController(transService transservice) {
+    public indexController(transService transservice ) {
+
         this.transservice = transservice;
     }
 
@@ -26,15 +28,29 @@ public class indexController {
         return "main";
     }
 
-    @PostMapping("/transForm")
-    public String transForm(Domain domain) throws ParseException {
-        domain.setJpLetter(transservice.JpTrans(domain));
-        domain.setEnLetter(transservice.EnTrans(domain));
-        return "trans";
+    @GetMapping("/transForm")
+    @ResponseBody
+    public Domain transForm(@RequestParam("data") String data, Domain domain) throws ParseException {
+        System.out.println(data);
+        String jp = transservice.JpTrans(data);
+        domain.setJpLetter(jp);
+        domain.setEnLetter(transservice.EnTrans(jp));
+
+
+        System.out.println(domain.getJpLetter());
+        System.out.println(domain.getEnLetter());
+
+        return domain;
     }
+
     @GetMapping("/board")
     public String board(){
         return "board";
+    }
+
+    @GetMapping("/t")
+    public String qnaBoard(){
+        return "QnA";
     }
 
 }

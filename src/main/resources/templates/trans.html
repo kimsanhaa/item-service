@@ -9,7 +9,7 @@
             <input type="text" id="letter" name="letter" th:value="${domain.letter}">
             <button type="submit">번역하기</button>
         </form>
-        <input type="text" th:value="${domain.jpLetter}" readonly>
+        <input type="text" th:attr="${domain.}" readonly>
         <input type="text" th:value="${domain.enLetter}" readonly>
     </div>
 </th:block>

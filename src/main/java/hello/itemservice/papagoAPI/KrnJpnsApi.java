@@ -38,6 +38,7 @@ public class KrnJpnsApi {
         JSONParser parser = new JSONParser();
         JSONObject jsonObject = (JSONObject) parser.parse(responseBody);
         JSONObject message = (JSONObject) jsonObject.get("message");
+
         JSONObject result = (JSONObject) message.get("result");
         String answer="";
         for (Object o : result.keySet()) {

@@ -20,11 +20,11 @@ public class transService {
         this.jpsEnsApi = jpsEnsApi;
     }
 
-    public String JpTrans(Domain domain) throws ParseException {
-    return krnJpnsApi.mainMethod(domain.getLetter());
+    public String JpTrans(String data) throws ParseException {
+    return krnJpnsApi.mainMethod(data);
     }
 
-    public String EnTrans(Domain domain) throws ParseException {
-        return jpsEnsApi.mainMethod(domain.getJpLetter());
+    public String EnTrans(String jpData) throws ParseException {
+        return jpsEnsApi.mainMethod(jpData);
     }
 }
