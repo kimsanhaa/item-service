@@ -7,9 +7,8 @@ function clickEle(){
         data:{"data":data},
         ContentType: "text/html; charset=UTF-8",
         success: function (data){
-            console.log(data);
-            $("#jpTran").attr('value',data.jpLetter);
-            $('input[name=enTran]').attr('value',data.enLetter);
+            $("textarea#jpTran").val(data.jpLetter);
+            $("textarea#enTran").val(data.enLetter);
         }
     })
 }

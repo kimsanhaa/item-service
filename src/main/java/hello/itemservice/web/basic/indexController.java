@@ -2,6 +2,7 @@ package hello.itemservice.web.basic;
 
 
 import hello.itemservice.domain.Domain;
+import hello.itemservice.domain.NaverDomain;
 import hello.itemservice.service.transService;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,9 +49,31 @@ public class indexController {
         return "board";
     }
 
-    @GetMapping("/t")
-    public String qnaBoard(){
-        return "QnA";
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/callback")
+    public String callback(){
+        return "callback";
+    }
+
+    @PostMapping("/login")
+    public NaverDomain loginChk(@RequestParam String email, String token, NaverDomain naverDomain){
+        System.out.println("Post login controller 실행완료");
+        //db와 연동해서 확인하는 로직 있어야함
+        //로그인 성공하면 check = true; 아니면 false
+        boolean  check = true;
+        if(check){
+            System.out.println("check");
+            naverDomain.setEmail(email);
+            naverDomain.setToken(token);
+            System.out.println(naverDomain);
+        return naverDomain;
+        }
+
+        return naverDomain;
     }
 
 }
