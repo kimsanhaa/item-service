@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class indexController {
@@ -60,20 +61,26 @@ public class indexController {
     }
 
     @PostMapping("/login")
-    public NaverDomain loginChk(@RequestParam String email, String token, NaverDomain naverDomain){
+    @ResponseBody
+    public NaverDomain loginChk(@RequestParam String email, String token, NaverDomain naverDomain,  HttpSession session){
         System.out.println("Post login controller 실행완료");
         //db와 연동해서 확인하는 로직 있어야함
         //로그인 성공하면 check = true; 아니면 false
         boolean  check = true;
-        if(check){
-            System.out.println("check");
-            naverDomain.setEmail(email);
-            naverDomain.setToken(token);
-            System.out.println(naverDomain);
-        return naverDomain;
-        }
+
+        System.out.println("check");
+        naverDomain.setEmail(email);
+        naverDomain.setToken(token);
+        session.setAttribute("userEmail",email);
+        System.out.println("세션"+session.getAttribute("userEmail"));
 
         return naverDomain;
+
+    }
+    @GetMapping("/temp")
+    public String tmep(){
+        System.out.println("tempㅋㅋ");
+        return "redirect:/board";
     }
 
 }

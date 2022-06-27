@@ -6,13 +6,18 @@
     <head>
         <link th:href="@{/css/head.css}" rel="stylesheet" />
     <div class="headBar">
+
         <button th:onclick="|location.href='@{/}'|">한번에번역기</button>
         <button th:onclick="|location.href='@{/board}'|">커뮤니티</button>
         <button th:onclick="|location.href='@{/qnaBoard}'|">QnA</button>
         <button th:onclick="|location.href='@{http://nid.naver.com/nidlogin.logout}'|">로그아웃</button>
         <button th:onclick="|location.href='@{/login}'|">로그인</button>
 
+
+
     </div>
+        <div th:if="${session.userEmail == null}">아직 로그인 안함요ㅋ</div>
+        <div th:if="${session.userEmail != null}" th:text="${session.userEmail}"></div>
     </head>
 
     <script type="text/javascript" th:src="@{/js/head.js}"></script>

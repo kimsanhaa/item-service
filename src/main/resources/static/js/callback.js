@@ -12,6 +12,11 @@ function naverSignInCallback() {
         success: function (data){
             console.log("success 함수실행");
             console.log(data);
+            $.ajax({
+                type:"GET",
+                url:"temp"
+                }
+            )
         },
         error:function (err){
             console.log(err);
